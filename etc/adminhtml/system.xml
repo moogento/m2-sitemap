@@ -1,0 +1,28 @@
+<?xml version="1.0" ?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Config:etc/system_file.xsd">
+    <system>
+        <tab id="moogento" translate="label" sortOrder="700" class="moogento-tab">
+            <label>MOOGENTO</label>
+        </tab>
+        <section id="moositemap" showInDefault="1" showInStore="1" showInWebsite="1" sortOrder="200" translate="label">
+            <label>Sitemap</label>
+			<header_css>moogento-header</header_css>
+            <tab>moogento</tab>
+            <resource>Moogento_Sitemap::config_moogento_sitemap</resource>
+            <group id="sitemap" translate="label" type="text" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>Sitemap</label>
+                <field id="enable" translate="label" type="select" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Enable Sitemap</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+                <field id="footer" translate="label" type="select" sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Add sitemap link to footer</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <depends>
+                        <field id="enable">1</field>
+                    </depends>
+                </field>
+            </group>
+        </section>
+    </system>
+</config>
