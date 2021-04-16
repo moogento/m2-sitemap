@@ -4,5 +4,5 @@
 
 Require new package with composer:
 ```bash
-composer require vfreedom/m2-sitemap
+composer require moogento/m2-sitemap
 ```
