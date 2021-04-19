@@ -87,14 +87,16 @@ class Tree extends \Magento\Framework\View\Element\Template
     {
         $tree = '<ul>';
         foreach ($catTree as $item) {
-            $tree .= '<li class="cat-item">';
-            $tree .= '<a class="cat-name" href="' . $this->getCategoryUrl((int)$item['entity_id']) . '">' . $item['name'];
-            $tree .= '<span class="prod-count">(' . (int)$item['product_count'] . ')</span>';
-            $tree .= '</a>';
-            $tree .= '</li>';
-            $childrenData = $item['children_data'];
-            if (is_array($childrenData) && count($childrenData) > 0) {
-                $tree .= $this->generate($childrenData);
+            if ((int)$item['is_active'] == 1) {
+                $tree .= '<li class="cat-item">';
+                $tree .= '<a class="cat-name" href="' . $this->getCategoryUrl((int)$item['entity_id']) . '">' . $item['name'];
+                $tree .= '<span class="prod-count">(' . (int)$item['product_count'] . ')</span>';
+                $tree .= '</a>';
+                $tree .= '</li>';
+                $childrenData = $item['children_data'];
+                if (is_array($childrenData) && count($childrenData) > 0) {
+                    $tree .= $this->generate($childrenData);
+                }
             }
         }
         $tree .= '</ul>';
