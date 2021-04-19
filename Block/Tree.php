@@ -4,6 +4,7 @@ namespace Moogento\Sitemap\Block;
 
 use Magento\Catalog\Api\CategoryManagementInterface;
 use Magento\Catalog\Model\CategoryRepository;
+use Magento\CatalogSearch\Block\Result;
 use Magento\Framework\View\Element\Template\Context;
 use Moogento\Sitemap\Model\Config;
 use Psr\Log\LoggerInterface;
@@ -125,5 +126,32 @@ class Tree extends \Magento\Framework\View\Element\Template
     {
         $category = $this->categoryRepository->get($categoryId, $this->_storeManager->getStore()->getId());
         return $category->getUrl();
+    }
+
+    /**
+     * Prepare layout
+     * @return $this
+     */
+    protected function _prepareLayout(): Tree
+    {
+        $title = 'Sitemap';
+        $this->pageConfig->getTitle()->set($title);
+        // add Home breadcrumb
+        $breadcrumbs = $this->getLayout()->getBlock('breadcrumbs');
+        if ($breadcrumbs) {
+            $breadcrumbs->addCrumb(
+                'home',
+                [
+                    'label' => __('Home'),
+                    'title' => __('Go to Home Page'),
+                    'link' => $this->_storeManager->getStore()->getBaseUrl()
+                ]
+            )->addCrumb(
+                'search',
+                ['label' => $title, 'title' => $title]
+            );
+        }
+
+        return parent::_prepareLayout();
     }
 }
