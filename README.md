@@ -8,6 +8,7 @@ Make an HTML sitemap, in Magento 2.
 
 Require new package with composer:
 ```bash
+composer clearcache
 composer config repositories.moogento vcs https://github.com/moogento/sitemap
 composer require moogento/sitemap
 ```
