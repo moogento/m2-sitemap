@@ -4,7 +4,6 @@ namespace Moogento\Sitemap\Block;
 
 use Magento\Catalog\Api\CategoryManagementInterface;
 use Magento\Catalog\Model\CategoryRepository;
-use Magento\CatalogSearch\Block\Result;
 use Magento\Framework\View\Element\Template\Context;
 use Moogento\Sitemap\Model\Config;
 use Psr\Log\LoggerInterface;
@@ -88,21 +87,31 @@ class Tree extends \Magento\Framework\View\Element\Template
         $tree = '<ul>';
         foreach ($catTree as $item) {
             if ((int)$item['is_active'] == 1) {
-                $tree .= '<li class="cat-item">';
+                $tree .= '<li class="cat_item';
                 if ((int)$item['parent_id'] == 2) {
-                    $tree .= '<h3>';
+                    $tree .= ' cat_parent';
                 }
-                $tree .= '<a class="cat-name" href="' . $this->getCategoryUrl((int)$item['entity_id']) . '">' . $item['name'];
-                $tree .= '<span class="prod-count">(' . (int)$item['product_count'] . ')</span>';
-                $tree .= '</a>';
+                $tree .= '">';
+
                 if ((int)$item['parent_id'] == 2) {
-                    $tree .= '<h3>';
+                    $tree .= '<h2>';
                 }
-                $tree .= '</li>';
+
+                $tree .= '<a class="cat-name" href="' . $this->getCategoryUrl((int)$item['entity_id']) . '">' . $item['name'] . '</a>';
+
+                if ((int)$item['parent_id'] == 2) {
+                    $tree .= '</h2>';
+                }
+
+                $tree .= '<span class="prod_count">(' . (int)$item['product_count'] . ')</span>';
+
+                
                 $childrenData = $item['children_data'];
                 if (is_array($childrenData) && count($childrenData) > 0) {
                     $tree .= $this->generate($childrenData);
                 }
+                $tree .= '</li>';
+
             }
         }
         $tree .= '</ul>';
