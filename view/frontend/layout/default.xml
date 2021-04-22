@@ -4,7 +4,7 @@
         <referenceBlock name="footer_links">
             <block class="Magento\Framework\View\Element\Html\Link\Current" name="moo_sitemap_footer_link" ifconfig="moositemap/sitemap/footer">
                 <arguments>
-                    <argument name="label" xsi:type="string" translate="true">Sitemap</argument>
+                    <argument name="label" xsi:type="string" translate="true">Site Map</argument>
                     <argument name="path" xsi:type="string">sitemap/index/index</argument>
                 </arguments>
             </block>

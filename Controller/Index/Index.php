@@ -35,7 +35,7 @@ class Index extends Action
     public function execute()
     {
         $page = $this->pageFactory->create();
-        $page->getConfig()->getTitle()->set(__('Sitemap'));
+        $page->getConfig()->getTitle()->set(__('Site Map'));
 
         return $page;
     }

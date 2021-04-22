@@ -151,7 +151,7 @@ class Tree extends \Magento\Framework\View\Element\Template
      */
     protected function _prepareLayout(): Tree
     {
-        $title = 'Sitemap';
+        $title = 'Site Map';
         $this->pageConfig->getTitle()->set($title);
         // add Home breadcrumb
         $breadcrumbs = $this->getLayout()->getBlock('breadcrumbs');
@@ -160,12 +160,11 @@ class Tree extends \Magento\Framework\View\Element\Template
                 'home',
                 [
                     'label' => __('Home'),
-                    'title' => __('Go to Home Page'),
                     'link' => $this->_storeManager->getStore()->getBaseUrl()
                 ]
             )->addCrumb(
                 'search',
-                ['label' => $title, 'title' => $title]
+                ['label' => $title]
             );
         }
 
