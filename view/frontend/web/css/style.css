@@ -18,11 +18,12 @@
     font-weight: 100;
 }
 .cat_item .cat_item {
-    line-height: 15px;
+    line-height: 1em;
 }
 .cat_item .cat_item .cat_item {
-    line-height: 10px;
-    margin-top: 10px;
+    line-height: 0.9em;
+    margin-top: 0.5em;
+    font-size: 90%;
 }
 
 span.prod_count {
