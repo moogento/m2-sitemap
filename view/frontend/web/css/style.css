@@ -40,3 +40,32 @@ span.prod_count {
     margin: 0;
     line-height: 50px;
 }
+
+.cms_page_list_wrapper .cms_page_label,
+.add_link_list_wrapper .link_list_label {
+    color: #006bb4;
+    margin: 1.5em 0 0;
+    border-top: 1px solid #d2d2d7;
+    width: 100%;
+    padding: 5px 15px 0;
+}
+
+.cms_page_list_wrapper .cms_page_label span,
+.add_link_list_wrapper .link_list_label span {
+    font-weight: 400;
+    font-size: 18px;
+    display: inline-block;
+    line-height: 50px;
+}
+
+.cms_page_list_wrapper .cms_page_label li,
+.add_link_list_wrapper .link_list_label li  {
+    font-size: 18px;
+    font-weight: 100;
+}
+
+.cms_page_list_wrapper .page_link,
+.add_link_list_wrapper .add_link {
+    font-size: 18px;
+    font-weight: 100;
+}

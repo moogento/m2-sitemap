@@ -3,10 +3,13 @@
 namespace Moogento\Sitemap\Block;
 
 use Magento\Catalog\Api\CategoryManagementInterface;
+use Magento\Catalog\Helper\Category;
 use Magento\Catalog\Model\CategoryRepository;
+use Magento\Cms\Model\Page;
 use Magento\Framework\View\Element\Template\Context;
 use Moogento\Sitemap\Model\Config;
 use Psr\Log\LoggerInterface;
+use Magento\Cms\Model\ResourceModel\Page\Collection as CmsPageCollection;
 
 class Tree extends \Magento\Framework\View\Element\Template
 {
@@ -28,6 +31,14 @@ class Tree extends \Magento\Framework\View\Element\Template
      * @var Config
      */
     private $config;
+    /**
+     * @var Category
+     */
+    private $category;
+    /**
+     * @var CmsPageCollection
+     */
+    private $cmsPageCollection;
 
     /**
      * Tree constructor.
@@ -35,6 +46,8 @@ class Tree extends \Magento\Framework\View\Element\Template
      * @param LoggerInterface $logger
      * @param CategoryRepository $categoryRepository
      * @param Config $config
+     * @param Category $category
+     * @param CmsPageCollection $cmsPageCollection
      * @param Context $context
      * @param array $data
      */
@@ -43,6 +56,8 @@ class Tree extends \Magento\Framework\View\Element\Template
         LoggerInterface $logger,
         CategoryRepository $categoryRepository,
         Config $config,
+        Category $category,
+        CmsPageCollection $cmsPageCollection,
         Context $context,
         array $data = []
     ) {
@@ -51,6 +66,8 @@ class Tree extends \Magento\Framework\View\Element\Template
         $this->categoryRepository = $categoryRepository;
         $this->logger = $logger;
         $this->config = $config;
+        $this->category = $category;
+        $this->cmsPageCollection = $cmsPageCollection;
     }
 
     /**
@@ -69,6 +86,12 @@ class Tree extends \Magento\Framework\View\Element\Template
                 $childrenData = $categoryTree['children_data'];
                 if (count($childrenData) > 0) {
                     $res = $this->generate($childrenData);
+                    if ($this->config->isActiveIncludeLinks()) {
+                        $res .= $this->generateCustomLinks();
+                    }
+                    if ($this->config->isActiveIncludeCms()) {
+                        $res .= $this->generateCmsLinks();
+                    }
                 }
             }
         } catch (\Exception $e) {
@@ -105,13 +128,11 @@ class Tree extends \Magento\Framework\View\Element\Template
 
                 $tree .= '<span class="prod_count">(' . (int)$item['product_count'] . ')</span>';
 
-                
                 $childrenData = $item['children_data'];
                 if (is_array($childrenData) && count($childrenData) > 0) {
                     $tree .= $this->generate($childrenData);
                 }
                 $tree .= '</li>';
-
             }
         }
         $tree .= '</ul>';
@@ -169,5 +190,90 @@ class Tree extends \Magento\Framework\View\Element\Template
         }
 
         return parent::_prepareLayout();
+    }
+
+    /**
+     * @return array
+     */
+    public function getIncludedPages(): array
+    {
+        if ($this->config->isActiveIncludeCms()) {
+            return explode(',', $this->config->getIncludeCms());
+        }
+
+        return [];
+    }
+
+    /**
+     * @return array
+     */
+    protected function getAdditionLinks(): array
+    {
+        $result = [];
+        $savedData = $this->config->getIncludeLinks();
+        if (!empty($savedData)) {
+            $Links = explode("\n", $savedData);
+            foreach ($Links as $link) {
+                $linkData = explode(',', $link);
+                if (count($linkData) > 1) {
+                    $result[$linkData[0]] = $linkData[1];
+                }
+            }
+        }
+        return $result;
+    }
+
+    /**
+     * Get category collection
+     * @return \Magento\Framework\Data\Tree\Node\Collection
+     */
+    public function getCategoryCollection()
+    {
+        return $this->category->getStoreCategories(false, true);
+    }
+
+    /**
+     * @return string
+     */
+    public function generateCustomLinks(): string
+    {
+        $result = '';
+        $links = $this->getAdditionLinks();
+        if (count($links) > 0) {
+            $result .= '<ul class="add_link_list_wrapper">';
+            $result .= sprintf('<li class="link_list_label"><span>%s</span></li>', __('Additional links'));
+            $result .= '<ul>';
+            foreach ($links as $key => $value) {
+                $result .= sprintf('<li><a class="add_link" href="%s">%s</a></li>', $key, $value);
+            }
+            $result .= '</ul></ul>';
+        }
+        return $result;
+    }
+
+    /**
+     * @return string
+     */
+    public function generateCmsLinks(): string
+    {
+        $result = '';
+        $pages = $this->getCmsPageCollection();
+        $result .= '<ul class="cms_page_list_wrapper">';
+        $result .= sprintf('<li class="cms_page_label"><span>%s</span></li>', __('Additional links'));
+        $result .= '<ul>';
+        foreach ($pages as $page) {
+            $result .= sprintf('<li><a class="page_link" href="%s">%s</a></li>', $page->getIdentifier(), $page->getTitle());
+        }
+        $result .= '</ul></ul>';
+        return $result;
+    }
+
+    /**
+     * @return CmsPageCollection
+     */
+    protected function getCmsPageCollection(): CmsPageCollection
+    {
+        return $this->cmsPageCollection->addFieldToFilter('is_active', Page::STATUS_ENABLED)
+            ->addFieldToFilter('identifier', ['in' => $this->getIncludedPages()]);
     }
 }

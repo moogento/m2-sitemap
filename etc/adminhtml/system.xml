@@ -22,6 +22,51 @@
                         <field id="enable">1</field>
                     </depends>
                 </field>
+                <field id="include_cms_yn" translate="label" type="select" sortOrder="30" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Include specific CMS pages </label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <depends>
+                        <field id="enable">1</field>
+                    </depends>
+                </field>
+                <field id="include_cms_listing" translate="label" type="multiselect" sortOrder="40" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Filter Cms Pages</label>
+                    <source_model>Moogento\Sitemap\Model\Source\CmsPage</source_model>
+                    <depends>
+                        <field id="enable">1</field>
+                        <field id="include_cms_yn">1</field>
+                    </depends>
+                </field>
+                <field id="include_links_yn" translate="label" type="select" sortOrder="50" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Include additional links</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <depends>
+                        <field id="enable">1</field>
+                    </depends>
+                </field>
+                <field id="include_links_listing" translate="label" type="textarea" sortOrder="60" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Links</label>
+                    <comment>
+                        <![CDATA[All links should be comma-separated (one link per line)</br>
+                         <span>Eg:</span></br>
+                         <span style="margin-left: 20px; display:block;">
+                            https://moogento.com/,Moogento</br>
+                            https://magento.com/,Magento
+                         </span>
+                         ]]>
+                    </comment>
+                    <depends>
+                        <field id="enable">1</field>
+                        <field id="include_links_yn">1</field>
+                    </depends>
+                </field>
+                <field id="hide_empty_categories_yn" translate="label" type="select" sortOrder="70" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Hide empty categories</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <depends>
+                        <field id="enable">1</field>
+                    </depends>
+                </field>
             </group>
         </section>
     </system>
