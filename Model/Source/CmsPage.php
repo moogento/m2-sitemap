@@ -2,6 +2,7 @@
 
 namespace Moogento\Sitemap\Model\Source;
 
+use Magento\Cms\Model\Page;
 use Magento\Cms\Model\ResourceModel\Page\Collection;
 use Magento\Cms\Model\ResourceModel\Page\CollectionFactory;
 
@@ -25,15 +26,42 @@ class CmsPage
      * Get list cms pages
      * @return array
      */
-    public function toOptionArray()
+    public function toOptionArray(): array
     {
         $options = [];
-        /** @var Collection $collection */
         $collection = $this->cmsPageCollectionFactory->create();
         foreach ($collection as $item) {
-            $options[] = ['value' => $item->getIdentifier(), 'label' => $item->getTitle()];
+            /** @var Page $item */
+            if ($this->isValid($item)) {
+                $options[] = ['value' => $item->getIdentifier(), 'label' => $item->getTitle()];
+            }
         }
 
         return $options;
+    }
+
+    /**
+     * @param Page $item
+     * @return bool
+     */
+    protected function isValid(Page $item): bool
+    {
+        $pos = strpos($item->getIdentifier(), '404');
+        if ($pos !== false) {
+            return false;
+        }
+        $pos = strpos($item->getTitle(), '404');
+        if ($pos !== false) {
+            return false;
+        }
+        $pos = strpos($item->getIdentifier(), 'cookie');
+        if ($pos !== false) {
+            return false;
+        }
+        $pos = strpos($item->getTitle(), 'cookie');
+        if ($pos !== false) {
+            return false;
+        }
+        return true;
     }
 }

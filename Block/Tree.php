@@ -86,12 +86,7 @@ class Tree extends \Magento\Framework\View\Element\Template
                 $childrenData = $categoryTree['children_data'];
                 if (count($childrenData) > 0) {
                     $res = $this->generate($childrenData);
-                    if ($this->config->isActiveIncludeLinks()) {
-                        $res .= $this->generateCustomLinks();
-                    }
-                    if ($this->config->isActiveIncludeCms()) {
-                        $res .= $this->generateCmsLinks();
-                    }
+                    $res .= $this->getAdditionalLinks();
                 }
             }
         } catch (\Exception $e) {
@@ -150,7 +145,7 @@ class Tree extends \Magento\Framework\View\Element\Template
     /**
      * @return string
      */
-    public function renderSitemap()
+    public function renderSitemap(): string
     {
         return $this->getCategoryTree();
     }
@@ -240,13 +235,11 @@ class Tree extends \Magento\Framework\View\Element\Template
         $result = '';
         $links = $this->getAdditionLinks();
         if (count($links) > 0) {
-            $result .= '<ul class="add_link_list_wrapper">';
-            $result .= sprintf('<li class="link_list_label"><span>%s</span></li>', __('Additional links'));
             $result .= '<ul>';
             foreach ($links as $key => $value) {
                 $result .= sprintf('<li><a class="add_link" href="%s">%s</a></li>', $key, $value);
             }
-            $result .= '</ul></ul>';
+            $result .= '</ul>';
         }
         return $result;
     }
@@ -258,13 +251,11 @@ class Tree extends \Magento\Framework\View\Element\Template
     {
         $result = '';
         $pages = $this->getCmsPageCollection();
-        $result .= '<ul class="cms_page_list_wrapper">';
-        $result .= sprintf('<li class="cms_page_label"><span>%s</span></li>', __('Additional links'));
         $result .= '<ul>';
         foreach ($pages as $page) {
-            $result .= sprintf('<li><a class="page_link" href="%s">%s</a></li>', $page->getIdentifier(), $page->getTitle());
+            $result .= sprintf('<li><a class="add_link" href="%s">%s</a></li>', $page->getIdentifier(), $page->getTitle());
         }
-        $result .= '</ul></ul>';
+        $result .= '</ul>';
         return $result;
     }
 
@@ -275,5 +266,27 @@ class Tree extends \Magento\Framework\View\Element\Template
     {
         return $this->cmsPageCollection->addFieldToFilter('is_active', Page::STATUS_ENABLED)
             ->addFieldToFilter('identifier', ['in' => $this->getIncludedPages()]);
+    }
+
+    /**
+     * @return string
+     */
+    public function getAdditionalLinks(): string
+    {
+        $result = '';
+        $incLinks = $this->config->isActiveIncludeLinks();
+        $incCms = $this->config->isActiveIncludeCms();
+        if ($incLinks || $incCms) {
+            $result .= '<ul class="add_link_list_wrapper">';
+            $result .= sprintf('<li class="link_list_label"><span>%s</span></li>', __('Additional'));
+            if ($incLinks) {
+                $result .= $this->generateCustomLinks();
+            }
+            if ($incCms) {
+                $result .= $this->generateCmsLinks();
+            }
+            $result .= '</ul>';
+        }
+        return $result;
     }
 }

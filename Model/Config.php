@@ -98,4 +98,15 @@ class Config
             $store
         );
     }
+
+    /**
+     * @return mixed
+     */
+    public function getManageStock()
+    {
+        return $this->scopeConfig->getValue(
+            \Magento\CatalogInventory\Model\Configuration::XML_PATH_MANAGE_STOCK,
+            \Magento\Store\Model\ScopeInterface::SCOPE_STORE
+        );
+    }
 }
