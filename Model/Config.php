@@ -13,6 +13,7 @@ class Config
     const XML_PATH_SITEMAP_INCLUDE_CMS_LISTING = 'moositemap/sitemap/include_cms_listing';
     const XML_PATH_SITEMAP_INCLUDE_LINKS_YN = 'moositemap/sitemap/include_links_yn';
     const XML_PATH_SITEMAP_INCLUDE_LINKS_LISTING = 'moositemap/sitemap/include_links_listing';
+    const XML_PATH_SITEMAP_HIDE_EMPTY_CATEGORIES_YN = 'moositemap/sitemap/hide_empty_categories_yn';
 
     /**
      * @var ScopeConfigInterface
@@ -107,6 +108,18 @@ class Config
         return $this->scopeConfig->getValue(
             \Magento\CatalogInventory\Model\Configuration::XML_PATH_MANAGE_STOCK,
             \Magento\Store\Model\ScopeInterface::SCOPE_STORE
+        );
+    }
+
+    /**
+     * @return mixed
+     */
+    public function isActiveHideEmptyCat($store = null)
+    {
+        return $this->scopeConfig->isSetFlag(
+            self::XML_PATH_SITEMAP_HIDE_EMPTY_CATEGORIES_YN,
+            ScopeInterface::SCOPE_STORE,
+            $store
         );
     }
 }

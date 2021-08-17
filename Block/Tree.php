@@ -7,6 +7,7 @@ use Magento\Catalog\Helper\Category;
 use Magento\Catalog\Model\CategoryRepository;
 use Magento\Cms\Model\Page;
 use Magento\Framework\View\Element\Template\Context;
+use Moogento\Sitemap\Model\CategoryService;
 use Moogento\Sitemap\Model\Config;
 use Psr\Log\LoggerInterface;
 use Magento\Cms\Model\ResourceModel\Page\Collection as CmsPageCollection;
@@ -39,6 +40,12 @@ class Tree extends \Magento\Framework\View\Element\Template
      * @var CmsPageCollection
      */
     private $cmsPageCollection;
+    /**
+     * @var CategoryService
+     */
+    private $categoryService;
+
+    private $isHideEmptyCat;
 
     /**
      * Tree constructor.
@@ -48,6 +55,7 @@ class Tree extends \Magento\Framework\View\Element\Template
      * @param Config $config
      * @param Category $category
      * @param CmsPageCollection $cmsPageCollection
+     * @param CategoryService $categoryService
      * @param Context $context
      * @param array $data
      */
@@ -58,6 +66,7 @@ class Tree extends \Magento\Framework\View\Element\Template
         Config $config,
         Category $category,
         CmsPageCollection $cmsPageCollection,
+        CategoryService $categoryService,
         Context $context,
         array $data = []
     ) {
@@ -68,12 +77,22 @@ class Tree extends \Magento\Framework\View\Element\Template
         $this->config = $config;
         $this->category = $category;
         $this->cmsPageCollection = $cmsPageCollection;
+        $this->categoryService = $categoryService;
+        $this->init();
+    }
+
+    /**
+     * @return void
+     */
+    protected function init()
+    {
+        $this->isHideEmptyCat = $this->config->isActiveHideEmptyCat();
     }
 
     /**
      * @return string
      */
-    public function getCategoryTree()
+    public function getCategoryTree(): string
     {
         if (!$this->isEnableSitemap()) {
             return '';
@@ -96,11 +115,11 @@ class Tree extends \Magento\Framework\View\Element\Template
     }
 
     /**
-     * @param $catTree
+     * @param array $catTree
      * @return string
      * @throws \Magento\Framework\Exception\NoSuchEntityException
      */
-    public function generate($catTree)
+    public function generate(array $catTree): string
     {
         $tree = '<ul>';
         foreach ($catTree as $item) {
@@ -112,17 +131,30 @@ class Tree extends \Magento\Framework\View\Element\Template
                 $tree .= '">';
 
                 if ((int)$item['parent_id'] == 2) {
-                    $tree .= '<h2>';
+                    $tree .= sprintf(
+                        '<h2><a class="cat-name" href="%s">%s</a></h2>',
+                        $this->getCategoryUrl((int)$item['entity_id']),
+                        $item['name']
+                    );
+                } elseif (count($item['children_data']) > 0) {
+                    if ($this->categoryService->getProductCountByCatId((int)$item['entity_id']) == 0) {
+                        $tree .= sprintf(
+                            '<a class="cat-name" href="%s">%s</a>',
+                            $this->getCategoryUrl((int)$item['entity_id']),
+                            $item['name']
+                        );
+                    } else {
+                        $tree .= $this->prepareString($this->getCategoryUrl((int)$item['entity_id']), $item['name'], (int)$item['product_count']);
+                    }
+                } else {
+                    if ($this->isHideEmptyCat) {
+                        if ($this->categoryService->getProductCountByCatId((int)$item['entity_id']) > 0) {
+                            $tree .= $this->prepareString($this->getCategoryUrl((int)$item['entity_id']), $item['name'], (int)$item['product_count']);
+                        }
+                    } else {
+                        $tree .= $this->prepareString($this->getCategoryUrl((int)$item['entity_id']), $item['name'], (int)$item['product_count']);
+                    }
                 }
-
-                $tree .= '<a class="cat-name" href="' . $this->getCategoryUrl((int)$item['entity_id']) . '">' . $item['name'] . '</a>';
-
-                if ((int)$item['parent_id'] == 2) {
-                    $tree .= '</h2>';
-                }
-
-                $tree .= '<span class="prod_count">(' . (int)$item['product_count'] . ')</span>';
-
                 $childrenData = $item['children_data'];
                 if (is_array($childrenData) && count($childrenData) > 0) {
                     $tree .= $this->generate($childrenData);
@@ -132,6 +164,22 @@ class Tree extends \Magento\Framework\View\Element\Template
         }
         $tree .= '</ul>';
         return $tree;
+    }
+
+    /**
+     * @param string $url
+     * @param string $name
+     * @param int $count
+     * @return string
+     */
+    protected function prepareString(string $url, string $name, int $count): string
+    {
+        return sprintf(
+            '<a class="cat-name" href="%s">%s</a><span class="prod_count">(%s)</span>',
+            $url,
+            $name,
+            $count
+        );
     }
 
     /**
@@ -151,11 +199,11 @@ class Tree extends \Magento\Framework\View\Element\Template
     }
 
     /**
-     * @param $categoryId
+     * @param int $categoryId
      * @return string
      * @throws \Magento\Framework\Exception\NoSuchEntityException
      */
-    public function getCategoryUrl($categoryId)
+    public function getCategoryUrl(int $categoryId): string
     {
         $category = $this->categoryRepository->get($categoryId, $this->_storeManager->getStore()->getId());
         return $category->getUrl();
