@@ -285,7 +285,7 @@ class Tree extends \Magento\Framework\View\Element\Template
         if (count($links) > 0) {
             $result .= '<ul>';
             foreach ($links as $key => $value) {
-                $result .= sprintf('<li><a class="add_link" href="%s">%s</a></li>', $key, $value);
+                $result .= sprintf('<li class="cat_item"><a class="cat-name" href="%s">%s</a></li>', $key, $value);
             }
             $result .= '</ul>';
         }
@@ -301,7 +301,7 @@ class Tree extends \Magento\Framework\View\Element\Template
         $pages = $this->getCmsPageCollection();
         $result .= '<ul>';
         foreach ($pages as $page) {
-            $result .= sprintf('<li><a class="add_link" href="%s">%s</a></li>', $page->getIdentifier(), $page->getTitle());
+            $result .= sprintf('<li class="cat_item"><a class="cat-name" href="%s">%s</a></li>', $page->getIdentifier(), $page->getTitle());
         }
         $result .= '</ul>';
         return $result;
@@ -325,8 +325,8 @@ class Tree extends \Magento\Framework\View\Element\Template
         $incLinks = $this->config->isActiveIncludeLinks();
         $incCms = $this->config->isActiveIncludeCms();
         if ($incLinks || $incCms) {
-            $result .= '<ul class="add_link_list_wrapper">';
-            $result .= sprintf('<li class="link_list_label"><span>%s</span></li>', __('Additional'));
+            $result .= '<ul>';
+            $result .= sprintf('<li class="cat_item cat_parent"><h2><a class="cat-name" href="javascript:void(0);">%s</a></h2></li>', __('Additional'));
             if ($incLinks) {
                 $result .= $this->generateCustomLinks();
             }

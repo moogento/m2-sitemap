@@ -6,4 +6,5 @@
     <referenceBlock name="content">
         <block class="Moogento\Sitemap\Block\Tree" name="moogento_sitemap" template="Moogento_Sitemap::sitemap.phtml" cacheable="false"/>
     </referenceBlock>
+    <referenceBlock name="page.main.title" template="Moogento_Sitemap::html/title.phtml"/>
 </page>

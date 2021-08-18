@@ -1,3 +1,57 @@
+@media screen and (max-width: 1024px) {
+    .sitemap_wrapper {
+        column-count: 1;
+    }
+    .cat_parent {
+        border-top: 1px solid #d2d2d7;
+    }
+    .add_link_list_wrapper .link_list_label {
+        border-top: 1px solid #d2d2d7;
+    }
+    .cat_item h2,
+    .cat_item h3 {
+        margin: 0;
+        line-height: 50px;
+    }
+    .cat_parent {
+        padding: 5px 15px 0;
+    }
+}
+
+@media screen and (min-width: 1025px) {
+    .sitemap_wrapper {
+        column-count: 3;
+        column-gap: 40px;
+    }
+    .page-title-wrapper .page-title {
+        width: 100%;
+    }
+    .page-title-wrapper .page-title span {
+        width: 100%;
+        display: inline-block;
+    }
+    .page-title-wrapper h1.page-title {
+        margin-bottom: 15px;
+    }
+    .cat_item h2, .cat_item h3 {
+        line-height: inherit;
+        margin: 0 0 10px 0;
+    }
+    .cat_parent {
+        padding: 0 15px 0;
+    }
+    .sitemap-search {
+        display: inline-block;
+        width: 20%;
+    }
+    .page-title-wrapper {
+        display: flex;
+        border-bottom: 1px solid #d2d2d7;
+        margin: 0 0 20px 0;
+        padding-bottom: 10px;
+    }
+}
+
 .sitemap_wrapper {
     margin-left: -40px;
 }
@@ -7,10 +61,7 @@
 }
 
 .cat_parent {
-    margin: 1.5em 0 0;
-    border-top: 1px solid #d2d2d7;
     width: 100%;
-    padding: 5px 15px 0;
 }
 
 .cat_item {
@@ -37,20 +88,15 @@ span.prod_count {
     display: inline-block;
     font-weight: 400;
     font-size: 110%;
-    margin: 0;
-    line-height: 50px;
 }
 
-.cms_page_list_wrapper .cms_page_label,
 .add_link_list_wrapper .link_list_label {
     color: #006bb4;
     margin: 1.5em 0 0;
-    border-top: 1px solid #d2d2d7;
     width: 100%;
     padding: 5px 15px 0;
 }
 
-.cms_page_list_wrapper .cms_page_label span,
 .add_link_list_wrapper .link_list_label span {
     font-weight: 400;
     font-size: 18px;
@@ -58,14 +104,16 @@ span.prod_count {
     line-height: 50px;
 }
 
-.cms_page_list_wrapper .cms_page_label li,
 .add_link_list_wrapper .link_list_label li  {
     font-size: 18px;
     font-weight: 100;
 }
 
-.cms_page_list_wrapper .page_link,
 .add_link_list_wrapper .add_link {
     font-size: 18px;
     font-weight: 100;
+}
+.sitemap_wrapper .prod_count.not-found,
+.sitemap_wrapper .cat-name.not-found {
+    display: none;
 }
