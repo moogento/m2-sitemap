@@ -1,0 +1,24 @@
+<?php /** @var $block \Moogento\Sitemap\Block\Adminhtml\System\Config\Hint */ ?>
+
+<div class="moogento-notice">
+    <div class="floatingcows">
+        <div class="floatingsheep" style="background-image:url(<?= $block->getLogo() ?>);">
+            <a href="https://moogento.com/" id="mooink">&nbsp;</a>
+        </div>
+        <div id="mooinfo">
+            <h4>
+                <a target="_blank" href="https://moogento.com/">Sitemap</a>
+            </h4>
+            <div id="moo_license_info"></div>
+            <script defer src="<?= $block->getInfo() ?>"></script>
+            <script>
+                require(['jquery'], function($){
+                    $(window).on('load', function() {
+                        $('#moo_license_info').html(window.moogento_license_info);
+                    });
+                });
+            </script>
+        </div>
+    </div>
+</div>
+<div style="clear:both;"></div>
