@@ -231,7 +231,8 @@ class Tree extends \Magento\Framework\View\Element\Template
                 ['label' => $title]
             );
         }
-
+        $this->pageConfig->setKeywords('sitemap categories subcategories');
+        $this->pageConfig->setDescription(sprintf('See & Search %s with our interactive sitemap', $this->_storeManager->getWebsite()->getName()));
         return parent::_prepareLayout();
     }
 
