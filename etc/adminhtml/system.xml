@@ -1,7 +1,7 @@
 <?xml version="1.0" ?>
 <config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Config:etc/system_file.xsd">
     <system>
-        <tab id="moogento" translate="label" sortOrder="700" class="moogento-tab">
+        <tab id="moogento" translate="label" sortOrder="300" class="moogento-tab">
             <label>MOOGENTO</label>
         </tab>
         <section id="moositemap" showInDefault="1" showInStore="1" showInWebsite="1" sortOrder="550" translate="label">
@@ -9,9 +9,6 @@
 			<header_css>moogento-header</header_css>
             <tab>moogento</tab>
             <resource>Moogento_Sitemap::config_moogento_sitemap</resource>
-            <group id="hint" showInDefault="1" showInWebsite="1" showInStore="1" sortOrder="0">
-                <frontend_model>Moogento\Sitemap\Block\Adminhtml\System\Config\Hint</frontend_model>
-            </group>
             <group id="sitemap" translate="label" type="text" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
                 <label>Sitemap</label>
                 <field id="enable" translate="label" type="select" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
@@ -25,52 +22,8 @@
                         <field id="enable">1</field>
                     </depends>
                 </field>
-                <field id="include_cms_yn" translate="label" type="select" sortOrder="30" showInDefault="1" showInWebsite="1" showInStore="1">
-                    <label>Include specific CMS pages </label>
-                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
-                    <depends>
-                        <field id="enable">1</field>
-                    </depends>
-                </field>
-                <field id="include_cms_listing" translate="label" type="multiselect" sortOrder="40" showInDefault="1" showInWebsite="1" showInStore="1">
-                    <label>Filter Cms Pages</label>
-                    <source_model>Moogento\Sitemap\Model\Source\CmsPage</source_model>
-                    <depends>
-                        <field id="enable">1</field>
-                        <field id="include_cms_yn">1</field>
-                    </depends>
-                </field>
-                <field id="include_links_yn" translate="label" type="select" sortOrder="50" showInDefault="1" showInWebsite="1" showInStore="1">
-                    <label>Include additional links</label>
-                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
-                    <depends>
-                        <field id="enable">1</field>
-                    </depends>
-                </field>
-                <field id="include_links_listing" translate="label" type="textarea" sortOrder="60" showInDefault="1" showInWebsite="1" showInStore="1">
-                    <label>Links</label>
-                    <comment>
-                        <![CDATA[All links should be comma-separated (one link per line)</br>
-                         <span>Eg:</span></br>
-                         <span style="margin-left: 20px; display:block;">
-                            https://moogento.com/,Moogento</br>
-                            https://magento.com/,Magento
-                         </span>
-                         ]]>
-                    </comment>
-                    <depends>
-                        <field id="enable">1</field>
-                        <field id="include_links_yn">1</field>
-                    </depends>
-                </field>
-                <field id="hide_empty_categories_yn" translate="label" type="select" sortOrder="70" showInDefault="1" showInWebsite="1" showInStore="1">
-                    <label>Hide empty categories</label>
-                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
-                    <depends>
-                        <field id="enable">1</field>
-                    </depends>
-                </field>
             </group>
         </section>
     </system>
 </config>
+ 
