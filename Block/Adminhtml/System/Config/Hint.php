@@ -44,7 +44,7 @@ class Hint extends Template implements RendererInterface
     public function getLogo(): string
     {
         return $this->_scopeConfig->getValue('moogento/logo/url')
-            . 'media/moo_logo/moogento_logo_sitemap.png';
+            . 'media/lic/moogento_logo_sitemap.png';
     }
 
     /**
@@ -53,6 +53,6 @@ class Hint extends Template implements RendererInterface
     public function getInfo(): string
     {
         return $this->_scopeConfig->getValue('moogento/logo/url')
-            . 'media/moo_info/moogento_sitemap.js';
+            . 'media/lic/moogento_sitemap.js';
     }
 }
