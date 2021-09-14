@@ -5,7 +5,7 @@
             <label>MOOGENTO</label>
         </tab>
         <section id="moositemap" showInDefault="1" showInStore="1" showInWebsite="1" sortOrder="550" translate="label">
-            <label>General</label>
+            <label>Sitemap</label>
 			<header_css>moogento-header</header_css>
             <tab>moogento</tab>
             <resource>Moogento_Sitemap::config_moogento_sitemap</resource>
@@ -13,7 +13,7 @@
                 <frontend_model>Moogento\Sitemap\Block\Adminhtml\System\Config\Hint</frontend_model>
             </group>
             <group id="sitemap" translate="label" type="text" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
-                <label>Sitemap</label>
+                <label>General</label>
                 <field id="enable" translate="label" type="select" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
                     <label>Enable Sitemap</label>
                     <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
