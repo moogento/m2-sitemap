@@ -4,6 +4,7 @@
         <moositemap>
             <sitemap>
                 <enable>1</enable>
+                <include_categories_yn>1</include_categories_yn>
                 <footer>1</footer>
             </sitemap>
         </moositemap>

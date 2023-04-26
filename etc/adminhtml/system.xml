@@ -25,6 +25,17 @@
                         <field id="enable">1</field>
                     </depends>
                 </field>
+                <field id="include_categories_yn" translate="label" type="select" sortOrder="30" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Include categories &amp; products</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <depends>
+                        <field id="enable">1</field>
+                    </depends>
+                    <comment>
+                        <![CDATA[[Default: Yes]
+                        <br>Set to Yes to show the standard Sitemap content]]>
+                    </comment>
+                </field>
                 <field id="include_cms_yn" translate="label" type="select" sortOrder="30" showInDefault="1" showInWebsite="1" showInStore="1">
                     <label>Include specific CMS pages </label>
                     <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
@@ -50,11 +61,22 @@
                 <field id="include_links_listing" translate="label" type="textarea" sortOrder="60" showInDefault="1" showInWebsite="1" showInStore="1">
                     <label>Links</label>
                     <comment>
-                        <![CDATA[All links should be comma-separated (one link per line)</br>
+                        <![CDATA[&bull; All links should be comma-separated (one link per line)</br>
                          <span>Eg:</span></br>
                          <span style="margin-left: 20px; display:block;">
                             https://moogento.com/,Moogento</br>
                             https://magento.com/,Magento
+                         </span>
+                         <br>&bull; You can &lt;em&gt;wrap text in em blocks&lt;/em&gt; to auto-add styles to the links
+                         <br><span>Eg:</span></br>
+                         <span style="margin-left: 20px; display:block;">
+                            https://moogento.com/,Moogento &lt;em&gt;More Orders, Less Effort&lt;/em&gt;
+                         </span>
+                         <br>&bull; You can &lt;h2&gt;wrap text in h2 blocks&lt;/h2&gt; to auto-add a title and a separate section
+                         <br><span>Eg:</span></br>
+                         <span style="margin-left: 20px; display:block;">
+                            &lt;h2&gt;Magento Optmising&lt;/h2&gt;
+                            https://moogento.com/,Moogento &lt;em&gt;More Orders, Less Effort&lt;/em&gt;
                          </span>
                          ]]>
                     </comment>

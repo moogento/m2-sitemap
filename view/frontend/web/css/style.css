@@ -4,6 +4,22 @@
     color: #333 !important;
 }
 
+.sitemap_wrapper a {
+    text-decoration: none;
+}
+
+.sitemap_wrapper a:hover {
+    text-decoration: none;
+    border-bottom: 1px solid;
+}
+
+.sitemap_wrapper em {
+    display: block;
+    font-style: normal;
+    font-size: 80%;
+    color: #333;
+}
+
 @media screen and (max-width: 1024px) {
     .page-main>.page-title-wrapper .page-title {
         margin: 20px 0 20px;
@@ -27,8 +43,12 @@
         line-height: 50px;
     }
 
-    .cat_parent {
-        padding: 5px 15px 0;
+    .cat_item {
+        padding: 0 10px 0;
+    }
+
+    .cat_item.cat_parent {
+        padding: 5px 0 0;
     }
 }
 
@@ -57,8 +77,12 @@
         margin: 0 0 10px 0;
     }
 
-    .cat_parent {
-        padding: 0 15px 0;
+    .cat_item {
+        padding: 0 10px 0;
+    }
+
+    .cat_item.cat_parent {
+        padding: 5px 0 0;
     }
 
     .sitemap-search {

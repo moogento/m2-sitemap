@@ -121,6 +121,9 @@ class Tree extends \Magento\Framework\View\Element\Template
      */
     public function generate(array $catTree): string
     {
+        if (!$this->config->isActiveIncludeCms()) {
+            return '';
+        }
         $tree = '<ul>';
         foreach ($catTree as $item) {
             if ((int)$item['is_active'] == 1) {
@@ -258,9 +261,11 @@ class Tree extends \Magento\Framework\View\Element\Template
         if (!empty($savedData)) {
             $Links = explode("\n", $savedData);
             foreach ($Links as $link) {
-                $linkData = explode(',', $link);
+                $linkData = explode(',', $link, 2);
                 if (count($linkData) > 1) {
                     $result[$linkData[0]] = $linkData[1];
+                } else {
+                    $result[] = $linkData[0];
                 }
             }
         }
@@ -283,15 +288,40 @@ class Tree extends \Magento\Framework\View\Element\Template
     {
         $result = '';
         $links = $this->getAdditionLinks();
+
         if (count($links) > 0) {
             $result .= '<ul>';
-            foreach ($links as $key => $value) {
-                $result .= sprintf('<li class="cat_item"><a class="cat-name" href="%s">%s</a></li>', $key, $value);
+            foreach ($links as $link => $label) {
+                $sanitizedLabel = $this->sanitizeLabel($label);
+
+                if (preg_match('/<h2>(.+)<\/h2>/', $sanitizedLabel)) {
+                    $result .= "</ul><ul><li class=\"cat_item cat_parent\">$sanitizedLabel</li>";
+                } else {
+                    $result .= sprintf('<li class="cat_item"><a class="cat-name" href="%s">%s</a></li>', $link, $sanitizedLabel);
+                }
             }
             $result .= '</ul>';
+
+            $result = str_replace('<ul></ul>', '', $result);
         }
+
         return $result;
     }
+
+    /**
+     * Sanitize label by allowing specific HTML tags
+     *
+     * @param string $label
+     * @return string
+     */
+    private function sanitizeLabel(string $label): string
+    {
+        $allowedTags = '<b><em><ul><span><br><h2>';
+        $sanitizedLabel = strip_tags($label, $allowedTags);
+
+        return $sanitizedLabel;
+    }
+
 
     /**
      * @return string
@@ -325,12 +355,16 @@ class Tree extends \Magento\Framework\View\Element\Template
         $result = '';
         $incLinks = $this->config->isActiveIncludeLinks();
         $incCms = $this->config->isActiveIncludeCms();
-        if ($incLinks || $incCms) {
-            $result .= '<ul>';
-            $result .= sprintf('<li class="cat_item cat_parent"><h2><a class="cat-name" href="javascript:void(0);">%s</a></h2></li>', __('Additional'));
+
+        if ($incLinks) {
             if ($incLinks) {
                 $result .= $this->generateCustomLinks();
             }
+        }
+
+        if ($incCms) {
+            $result .= '<ul>';
+            $result .= sprintf('<li class="cat_item cat_parent"><h2>%s</h2></li>', __('Additional'));
             if ($incCms) {
                 $result .= $this->generateCmsLinks();
             }
