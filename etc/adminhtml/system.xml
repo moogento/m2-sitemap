@@ -15,18 +15,18 @@
             <group id="sitemap" translate="label" type="text" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
                 <label>General</label>
                 <field id="enable" translate="label" type="select" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
-                    <label>Enable Sitemap</label>
+                    <label><![CDATA[<span style="font-weight:100">Enable:</span> Sitemap]]></label>
                     <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
                 </field>
                 <field id="footer" translate="label" type="select" sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="1">
-                    <label>Add sitemap link to footer</label>
+                    <label><![CDATA[<span style="font-weight:100">Add:</span> Sitemap link to footer]]></label>
                     <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
                     <depends>
                         <field id="enable">1</field>
                     </depends>
                 </field>
                 <field id="include_categories_yn" translate="label" type="select" sortOrder="30" showInDefault="1" showInWebsite="1" showInStore="1">
-                    <label>Include categories &amp; products</label>
+                    <label><![CDATA[<span style="font-weight:100">Include:</span> Categories &amp; products]]></label>
                     <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
                     <depends>
                         <field id="enable">1</field>
@@ -37,14 +37,14 @@
                     </comment>
                 </field>
                 <field id="include_cms_yn" translate="label" type="select" sortOrder="30" showInDefault="1" showInWebsite="1" showInStore="1">
-                    <label>Include specific CMS pages </label>
+                    <label><![CDATA[<span style="font-weight:100">Include:</span> Specific CMS pages]]></label>
                     <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
                     <depends>
                         <field id="enable">1</field>
                     </depends>
                 </field>
                 <field id="include_cms_listing" translate="label" type="multiselect" sortOrder="40" showInDefault="1" showInWebsite="1" showInStore="1">
-                    <label>Filter Cms Pages</label>
+                    <label><![CDATA[<span style="font-weight:100">Filter:</span> CMS pages]]></label>
                     <source_model>Moogento\Sitemap\Model\Source\CmsPage</source_model>
                     <depends>
                         <field id="enable">1</field>
@@ -52,7 +52,7 @@
                     </depends>
                 </field>
                 <field id="include_links_yn" translate="label" type="select" sortOrder="50" showInDefault="1" showInWebsite="1" showInStore="1">
-                    <label>Include additional links</label>
+                    <label><![CDATA[<span style="font-weight:100">Include:</span> Additional links]]></label>
                     <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
                     <depends>
                         <field id="enable">1</field>
@@ -60,6 +60,7 @@
                 </field>
                 <field id="include_links_listing" translate="label" type="textarea" sortOrder="60" showInDefault="1" showInWebsite="1" showInStore="1">
                     <label>Links</label>
+                    <frontend_model>Moogento\Sitemap\Block\Adminhtml\Form\Field\Textarea</frontend_model>
                     <comment>
                         <![CDATA[&bull; Format is (one link per line): {url},{anchor text}
                         <br><span style="margin-left: 20px; display:block;">
@@ -88,7 +89,7 @@
                     </depends>
                 </field>
                 <field id="hide_empty_categories_yn" translate="label" type="select" sortOrder="70" showInDefault="1" showInWebsite="1" showInStore="1">
-                    <label>Hide empty categories</label>
+                    <label><![CDATA[<span style="font-weight:100">Hide:</span> Empty categories]]></label>
                     <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
                     <depends>
                         <field id="enable">1</field>
