@@ -20,6 +20,15 @@
     color: #333;
 }
 
+.cat_item {
+    padding: 0 10px 0;
+}
+
+.cat_item.cat_parent,
+.cat_item.cat_parent ul {
+    padding: 5px 0 0;
+}
+
 @media screen and (max-width: 1024px) {
     .page-main>.page-title-wrapper .page-title {
         margin: 20px 0 20px;
@@ -43,13 +52,6 @@
         line-height: 50px;
     }
 
-    .cat_item {
-        padding: 0 10px 0;
-    }
-
-    .cat_item.cat_parent {
-        padding: 5px 0 0;
-    }
 }
 
 @media screen and (min-width: 1025px) {
@@ -75,14 +77,6 @@
     .cat_item h3 {
         line-height: inherit;
         margin: 0 0 10px 0;
-    }
-
-    .cat_item {
-        padding: 0 10px 0;
-    }
-
-    .cat_item.cat_parent {
-        padding: 5px 0 0;
     }
 
     .sitemap-search {

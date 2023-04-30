@@ -97,6 +97,7 @@ class Tree extends \Magento\Framework\View\Element\Template
         if (!$this->isEnableSitemap()) {
             return '';
         }
+
         $rootCategoryId = 2;
         $res = '';
         try {
@@ -121,7 +122,7 @@ class Tree extends \Magento\Framework\View\Element\Template
      */
     public function generate(array $catTree): string
     {
-        if (!$this->config->isActiveIncludeCms()) {
+        if (!$this->config->isActiveIncludeCategories()) {
             return '';
         }
         $tree = '<ul>';
@@ -364,11 +365,11 @@ class Tree extends \Magento\Framework\View\Element\Template
 
         if ($incCms) {
             $result .= '<ul>';
-            $result .= sprintf('<li class="cat_item cat_parent"><h2>%s</h2></li>', __('Additional'));
+            $result .= sprintf('<li class="cat_item cat_parent"><h2>%s</h2>', __('Additional'));
             if ($incCms) {
                 $result .= $this->generateCmsLinks();
             }
-            $result .= '</ul>';
+            $result .= '</li></ul>';
         }
         return $result;
     }
