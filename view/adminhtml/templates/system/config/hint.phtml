@@ -1,4 +1,6 @@
-<?php /** @var $block \Moogento\Sitemap\Block\Adminhtml\System\Config\Hint */ ?>
+<?php
+
+/** @var $block \Moogento\Sitemap\Block\Adminhtml\System\Config\Hint */ ?>
 
 <div class="moogento-notice">
     <div class="floatingcows">
@@ -7,12 +9,17 @@
         </div>
         <div id="mooinfo">
             <h4>
-                <a target="_blank" href="https://moogento.com/">Sitemap</a>
+                <a target="_blank" href="https://moogento.com/sitemap">Sitemap</a>
             </h4>
-            <div id="moo_license_info"></div>
-            <script defer src="<?= $block->getInfo() ?>"></script>
+            <div id="moo_license_info">
+                <ul class="ext_info" style="width: 32em;">
+                    <li class="tick">
+                        <em></em> You're running version <span style="opacity:0.5;float:right;">2.8.5</span>
+                    </li>
+                </ul>
+            </div>
             <script>
-                require(['jquery'], function($){
+                require(['jquery'], function($) {
                     $(window).on('load', function() {
                         $('#moo_license_info').html(window.moogento_license_info);
                     });
@@ -21,7 +28,7 @@
         </div>
     </div>
     <ul id="wikilinks">
-        <li><a class="wiki" href="https://moogento.com/"><span>★</span> User Guide</a></li>
+        <li><a class="wiki" href="https://moogento.com/guides"><span>★</span> User Guide</a></li>
         <li><a class="store" href="https://moogento.com"><img src="https://moogento.com/images/moogento-favicon_32x32.png" width=16 /> Add Superpowers!</a></li>
     </ul>
 </div>

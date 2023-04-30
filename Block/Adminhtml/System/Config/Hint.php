@@ -38,21 +38,8 @@ class Hint extends Template implements RendererInterface
         return $this->toHtml();
     }
 
-    /**
-     * @return string
-     */
-    public function getLogo(): string
+    public function getLogo()
     {
-        return $this->_scopeConfig->getValue('moogento/logo/url')
-            . 'lic/moogento_logo_sitemap.png';
-    }
-
-    /**
-     * @return string
-     */
-    public function getInfo(): string
-    {
-        return $this->_scopeConfig->getValue('moogento/logo/url')
-            . 'lic/moogento_sitemap.js';
+        return 'https://l2.moogento.com/media/img/logo/sitemap.png';
     }
 }

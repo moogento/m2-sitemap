@@ -6,7 +6,7 @@
         </tab>
         <section id="moositemap" showInDefault="1" showInStore="1" showInWebsite="1" sortOrder="550" translate="label">
             <label>Sitemap</label>
-			<header_css>moogento-header</header_css>
+            <header_css>moogento-header</header_css>
             <tab>moogento</tab>
             <resource>Moogento_Sitemap::config_moogento_sitemap</resource>
             <group id="hint" showInDefault="1" showInWebsite="1" showInStore="1" sortOrder="0">
@@ -61,24 +61,26 @@
                 <field id="include_links_listing" translate="label" type="textarea" sortOrder="60" showInDefault="1" showInWebsite="1" showInStore="1">
                     <label>Links</label>
                     <comment>
-                        <![CDATA[&bull; All links should be comma-separated (one link per line)</br>
-                         <span>Eg:</span></br>
-                         <span style="margin-left: 20px; display:block;">
+                        <![CDATA[&bull; Format is (one link per line): {url},{anchor text}
+                        <br><span style="margin-left: 20px; display:block;">
+                            eg:<br>
                             https://moogento.com/,Moogento</br>
                             https://magento.com/,Magento
-                         </span>
-                         <br>&bull; You can &lt;em&gt;wrap text in em blocks&lt;/em&gt; to auto-add styles to the links
-                         <br><span>Eg:</span></br>
-                         <span style="margin-left: 20px; display:block;">
+                        </span>
+                         
+                        <br>&bull; You can &lt;em&gt;wrap text in em blocks&lt;/em&gt; to auto-add style to the link anchor text
+                        <br><span style="margin-left: 20px; display:block;">
+                            eg:<br>
                             https://moogento.com/,Moogento &lt;em&gt;More Orders, Less Effort&lt;/em&gt;
-                         </span>
-                         <br>&bull; You can &lt;h2&gt;wrap text in h2 blocks&lt;/h2&gt; to auto-add a title and a separate section
-                         <br><span>Eg:</span></br>
-                         <span style="margin-left: 20px; display:block;">
+                        </span>
+                         
+                        <br>&bull; You can &lt;h2&gt;wrap text in h2 blocks&lt;/h2&gt; to auto-add a title and a separate section
+                        <br><span style="margin-left: 20px; display:block;">
+                            eg:<br>
                             &lt;h2&gt;Magento Optmising&lt;/h2&gt;
-                            https://moogento.com/,Moogento &lt;em&gt;More Orders, Less Effort&lt;/em&gt;
-                         </span>
-                         ]]>
+                            <br>https://moogento.com/,Moogento &lt;em&gt;More Orders, Less Effort&lt;/em&gt;
+                        </span>
+                        ]]>
                     </comment>
                     <depends>
                         <field id="enable">1</field>
