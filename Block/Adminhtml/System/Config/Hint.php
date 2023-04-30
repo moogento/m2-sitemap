@@ -6,12 +6,18 @@ use Magento\Backend\Block\Template;
 use Magento\Backend\Block\Template\Context;
 use Magento\Framework\Data\Form\Element\AbstractElement;
 use Magento\Framework\Data\Form\Element\Renderer\RendererInterface;
+use Moogento\Sitemap\Helper\VersionHelper;
 
 /**
  * @method Hint setElement
  */
 class Hint extends Template implements RendererInterface
 {
+    /**
+     * @var VersionHelper
+     */
+    protected $versionHelper;
+
     /**
      * @var string
      */
@@ -21,8 +27,12 @@ class Hint extends Template implements RendererInterface
      * @param Context $context
      * @param array $data
      */
-    public function __construct(Context $context, array $data = [])
+    public function __construct(
+        Context $context, 
+        VersionHelper $versionHelper,
+        array $data = [])
     {
+        $this->versionHelper = $versionHelper;
         parent::__construct($context, $data);
     }
 
@@ -41,5 +51,10 @@ class Hint extends Template implements RendererInterface
     public function getLogo()
     {
         return 'https://l2.moogento.com/media/img/logo/sitemap.png';
+    }
+
+    public function getVersion()
+    {
+        return $this->versionHelper->getModuleVersion();
     }
 }

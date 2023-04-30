@@ -2,7 +2,7 @@
     "name": "moogento/sitemap",
     "description": "Magento 2 Sitemap",
     "type": "magento2-module",
-    "version": "2.8.5",
+    "version": "2.8.6",
     "license": [
         "OSL-3.0",
         "AFL-3.0"

@@ -14,17 +14,10 @@
             <div id="moo_license_info">
                 <ul class="ext_info" style="width: 32em;">
                     <li class="tick">
-                        <em></em> You're running version <span style="opacity:0.5;float:right;">2.8.5</span>
+                        <em></em> You're running version <span style="opacity:0.5;float:right;"><?= $block->getVersion() ?></span>
                     </li>
                 </ul>
             </div>
-            <script>
-                require(['jquery'], function($) {
-                    $(window).on('load', function() {
-                        $('#moo_license_info').html(window.moogento_license_info);
-                    });
-                });
-            </script>
         </div>
     </div>
     <ul id="wikilinks">
