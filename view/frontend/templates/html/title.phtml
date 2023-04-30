@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Copyright © Moogento. All rights reserved.
  * See LICENSE.txt for license details.
@@ -17,8 +18,8 @@ $cssClass = $block->getCssClass() ? ' ' . $block->getCssClass() : '';
     <?= $block->getChildHtml() ?>
     <div class="sitemap-search" data-bind="scope: 'filterable-list'">
         <label for="search-name"></label>
-        <input type="text" class="search" id="search-name" placeholder="<?= __('Search') ?>"
-               data-bind="textInput: findText, event:{ change: findInSitemap.bind( $data, findText() )}"/>
+        <input type="text" class="search" id="search-name" placeholder="<?= __('Search sitemap') ?>" data-bind="textInput: findText, event:{ change: findInSitemap.bind( $data, findText() )}" />
+        <img class="search-icon" src="<?= $block->getViewFileUrl('Moogento_Sitemap::images/magnifying-glass.svg') ?>" alt="Search" />
     </div>
 </div>
 

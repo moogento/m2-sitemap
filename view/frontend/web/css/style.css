@@ -82,8 +82,22 @@
     .sitemap-search {
         display: inline-block;
         width: 20%;
-        margin: 16px 0 0;
+        margin: 28px 0 0;
+        position: relative;
     }
+
+    .sitemap-search input.search {
+        padding: 0 35px 0 9px;
+    }
+
+    .search-icon {
+        position: absolute;
+        right: 3px;
+        top: 45%;
+        transform: translateY(-50%);
+        cursor: auto;
+        filter: invert(83%) sepia(13%) saturate(0%) hue-rotate(141deg) brightness(96%) contrast(94%);
+    }    
 
     .page-title-wrapper {
         display: flex;

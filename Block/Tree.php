@@ -219,7 +219,7 @@ class Tree extends \Magento\Framework\View\Element\Template
      */
     protected function _prepareLayout(): Tree
     {
-        $title = 'Site Map';
+        $title = 'Sitemap';
         $this->pageConfig->getTitle()->set($title);
         // add Home breadcrumb
         $breadcrumbs = $this->getLayout()->getBlock('breadcrumbs');
