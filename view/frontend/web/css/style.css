@@ -1,3 +1,8 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
 .page-main>.page-title-wrapper .page-title {
     font-size: 27px;
     margin: 35px 0 0;
@@ -97,7 +102,7 @@
         transform: translateY(-50%);
         cursor: auto;
         filter: invert(83%) sepia(13%) saturate(0%) hue-rotate(141deg) brightness(96%) contrast(94%);
-    }    
+    }
 
     .page-title-wrapper {
         display: flex;
@@ -105,10 +110,6 @@
         margin: 0 0 20px 0;
         padding-bottom: 10px;
     }
-}
-
-.sitemap_wrapper {
-    margin-left: -40px;
 }
 
 .sitemap_wrapper li {
