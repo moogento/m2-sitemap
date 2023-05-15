@@ -68,13 +68,13 @@
                             https://moogento.com/,Moogento</br>
                             https://magento.com/,Magento
                         </span>
-                         
+
                         <br>&bull; You can &lt;em&gt;wrap text in em blocks&lt;/em&gt; to auto-add style to the link anchor text
                         <br><span style="margin-left: 20px; display:block;">
                             eg:<br>
                             https://moogento.com/,Moogento &lt;em&gt;More Orders, Less Effort&lt;/em&gt;
                         </span>
-                         
+
                         <br>&bull; You can &lt;h2&gt;wrap text in h2 blocks&lt;/h2&gt; to auto-add a title and a separate section
                         <br><span style="margin-left: 20px; display:block;">
                             eg:<br>
@@ -88,8 +88,15 @@
                         <field id="include_links_yn">1</field>
                     </depends>
                 </field>
-                <field id="hide_empty_categories_yn" translate="label" type="select" sortOrder="70" showInDefault="1" showInWebsite="1" showInStore="1">
+                <field id="hide_empty_categories_yn" translate="label" type="select" sortOrder="70" showInDefault="1" showInWebsite="0" showInStore="0">
                     <label><![CDATA[<span style="font-weight:100">Hide:</span> Empty categories]]></label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <depends>
+                        <field id="enable">1</field>
+                    </depends>
+                </field>
+                <field id="show_products" translate="label" type="select" sortOrder="80" showInDefault="1" showInWebsite="0" showInStore="0">
+                    <label><![CDATA[<span style="font-weight:100">Show:</span> products]]></label>
                     <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
                     <depends>
                         <field id="enable">1</field>
@@ -99,4 +106,3 @@
         </section>
     </system>
 </config>
- 

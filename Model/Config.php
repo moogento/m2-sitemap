@@ -15,6 +15,7 @@ class Config
     const XML_PATH_SITEMAP_INCLUDE_LINKS_YN = 'moositemap/sitemap/include_links_yn';
     const XML_PATH_SITEMAP_INCLUDE_LINKS_LISTING = 'moositemap/sitemap/include_links_listing';
     const XML_PATH_SITEMAP_HIDE_EMPTY_CATEGORIES_YN = 'moositemap/sitemap/hide_empty_categories_yn';
+    const XML_PATH_SITEMAP_SHOW_PRODUCTS_YN = 'moositemap/sitemap/show_products';
 
     /**
      * @var ScopeConfigInterface
@@ -131,6 +132,18 @@ class Config
     {
         return $this->scopeConfig->isSetFlag(
             self::XML_PATH_SITEMAP_HIDE_EMPTY_CATEGORIES_YN,
+            ScopeInterface::SCOPE_STORE,
+            $store
+        );
+    }
+
+    /**
+     * @return mixed
+     */
+    public function canShowProducts($store = null)
+    {
+        return $this->scopeConfig->isSetFlag(
+            self::XML_PATH_SITEMAP_SHOW_PRODUCTS_YN,
             ScopeInterface::SCOPE_STORE,
             $store
         );

@@ -125,6 +125,7 @@ class Tree extends \Magento\Framework\View\Element\Template
         if (!$this->config->isActiveIncludeCategories()) {
             return '';
         }
+        $showProducts = $this->config->canShowProducts();
         $tree = '<ul>';
         foreach ($catTree as $item) {
             if ((int)$item['is_active'] == 1) {
@@ -141,23 +142,28 @@ class Tree extends \Magento\Framework\View\Element\Template
                         $item['name']
                     );
                 } elseif (count($item['children_data']) > 0) {
-                    if ($this->categoryService->getProductCountByCatId((int)$item['entity_id']) == 0) {
+                    $productsCount = (int)$this->categoryService->getProductCountByCatId((int)$item['entity_id']);
+                    if ($productsCount == 0) {
                         $tree .= sprintf(
                             '<a class="cat-name" href="%s">%s</a>',
                             $this->getCategoryUrl((int)$item['entity_id']),
                             $item['name']
                         );
                     } else {
-                        $tree .= $this->prepareString($this->getCategoryUrl((int)$item['entity_id']), $item['name'], (int)$item['product_count']);
+                        $tree .= $this->prepareString($this->getCategoryUrl((int)$item['entity_id']), $item['name'], $productsCount);
                     }
                 } else {
+                    $productsCount = (int)$this->categoryService->getProductCountByCatId((int)$item['entity_id']);
                     if ($this->isHideEmptyCat) {
-                        if ($this->categoryService->getProductCountByCatId((int)$item['entity_id']) > 0) {
-                            $tree .= $this->prepareString($this->getCategoryUrl((int)$item['entity_id']), $item['name'], (int)$item['product_count']);
+                        if ($productsCount > 0) {
+                            $tree .= $this->prepareString($this->getCategoryUrl((int)$item['entity_id']), $item['name'], $productsCount);
                         }
                     } else {
-                        $tree .= $this->prepareString($this->getCategoryUrl((int)$item['entity_id']), $item['name'], (int)$item['product_count']);
+                        $tree .= $this->prepareString($this->getCategoryUrl((int)$item['entity_id']), $item['name'], $productsCount);
                     }
+                }
+                if ($showProducts) {
+                    $tree .= $this->getProductListByCatId((int)$item['entity_id']);
                 }
                 $childrenData = $item['children_data'];
                 if (is_array($childrenData) && count($childrenData) > 0) {
@@ -358,19 +364,29 @@ class Tree extends \Magento\Framework\View\Element\Template
         $incCms = $this->config->isActiveIncludeCms();
 
         if ($incLinks) {
-            if ($incLinks) {
-                $result .= $this->generateCustomLinks();
-            }
+            $result .= $this->generateCustomLinks();
         }
 
         if ($incCms) {
             $result .= '<ul>';
             $result .= sprintf('<li class="cat_item cat_parent"><h2>%s</h2>', __('Additional'));
-            if ($incCms) {
-                $result .= $this->generateCmsLinks();
-            }
+            $result .= $this->generateCmsLinks();
             $result .= '</li></ul>';
         }
         return $result;
+    }
+
+    public function getProductListByCatId($categoryId)
+    {
+        $list = '';
+        $collection = $this->categoryService->getProductCollectionByCatId($categoryId);
+        if ($collection->count()) {
+            $list .= '<ul class="products-list">';
+            foreach ($collection as $product) {
+                $list .= sprintf('<li class="product"><a href="%s">%s</a></li>', $product->getProductUrl(), $product->getName());
+            }
+            $list .= '</ul>';
+        }
+        return $list;
     }
 }

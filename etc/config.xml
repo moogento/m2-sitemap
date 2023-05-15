@@ -6,6 +6,7 @@
                 <enable>1</enable>
                 <include_categories_yn>1</include_categories_yn>
                 <footer>1</footer>
+                <show_products>0</show_products>
             </sitemap>
         </moositemap>
     </default>
