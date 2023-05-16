@@ -184,6 +184,14 @@ class Tree extends \Magento\Framework\View\Element\Template
      */
     protected function prepareString(string $url, string $name, int $count): string
     {
+        if(!$count || $count == 0 || $count == 1) {
+            return sprintf(
+                '<a class="cat-name" href="%s">%s</a>',
+                $url,
+                $name
+            );    
+        }
+        
         return sprintf(
             '<a class="cat-name" href="%s">%s</a><span class="prod_count">(%s)</span>',
             $url,
